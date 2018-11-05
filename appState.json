@@ -1,0 +1,118 @@
+{
+  "EDITOR_STATE": {
+    "allProjectFiles": {
+      "2b894c2e-1f80-4f35-a499-a81340538d91": {
+        "id": "2b894c2e-1f80-4f35-a499-a81340538d91",
+        "parent": null,
+        "name": "new11",
+        "type": "DIRECTORY",
+        "isDirectory": true,
+        "children": [
+          "0bf196e7-31d4-4fe7-ac20-19ee5f7d8c17",
+          "a06975d0-ab34-4bfa-8956-345b03e5536c"
+        ],
+        "isRemovable": false,
+        "filePath": "new11"
+      },
+      "0bf196e7-31d4-4fe7-ac20-19ee5f7d8c17": {
+        "id": "0bf196e7-31d4-4fe7-ac20-19ee5f7d8c17",
+        "parent": "2b894c2e-1f80-4f35-a499-a81340538d91",
+        "name": "function.js",
+        "type": "LAMBDA_FILE",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "new11/function.js",
+        "code": "let google = require('googleapis').google;\nlet _auth = require('./Authorizer');\nconst pubsub = google.pubsub('v1');\n\nexports.handler = function (request, response) {\n    pubsub.projects.topics.subscriptions.list({\n        topic: `projects/${process.env.GCP_PROJECT}/topics/test2`,\n        pageSize: 10\n    })\n        .then(response => {\n            console.log(response.data);  // successful response\n            /*\n            response.data = {\n                \"subscriptions\": [\n                    \"projects/<project>/subscriptions/<subscription-1>\",\n                    \"projects/<project>/subscriptions/<subscription-2>\",\n                    ...\n                ]\n            }\n            */\n        })\n        .catch(err => {\n            console.log(err, err.stack); // an error occurred\n        });\n\n    response.send({ \"message\": \"Successfully executed\" });\n}",
+        "triggers": [
+          {
+            "resourceName": "http-trigger",
+            "config": {}
+          }
+        ],
+        "config": {
+          "runtime": "nodejs8.10",
+          "timeout": 60,
+          "memory": 128,
+          "triggerType": 0
+        }
+      },
+      "1195c609-6db3-436e-b718-d054a2c691c2": {
+        "id": "1195c609-6db3-436e-b718-d054a2c691c2",
+        "parent": null,
+        "name": "index.js",
+        "type": "JS_FILE",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": false,
+        "filePath": "index.js",
+        "code": "// This file is used to register all your cloud functions in GCP.\n// DO NOT EDIT/DELETE THIS, UNLESS YOU KNOW WHAT YOU ARE DOING.\n\nexports.new11function = require(\"./new11/function.js\").handler;",
+        "triggers": []
+      },
+      "a06975d0-ab34-4bfa-8956-345b03e5536c": {
+        "id": "a06975d0-ab34-4bfa-8956-345b03e5536c",
+        "parent": "2b894c2e-1f80-4f35-a499-a81340538d91",
+        "name": "Authorizer.js",
+        "type": "JS_FILE",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "new11/Authorizer.js",
+        "code": "const google = require(\"googleapis\").google;\n\ngoogle.options({auth: new google.auth.Compute()});",
+        "triggers": []
+      }
+    },
+    "deletedFiles": [],
+    "rootNode": "2b894c2e-1f80-4f35-a499-a81340538d91",
+    "openFiles": [
+      "0bf196e7-31d4-4fe7-ac20-19ee5f7d8c17"
+    ],
+    "currentFileId": "0bf196e7-31d4-4fe7-ac20-19ee5f7d8c17",
+    "resources": {
+      "http-trigger": {
+        "name": "http-trigger",
+        "type": "http-trigger",
+        "config": {},
+        "globallyEditable": false
+      },
+      "pubsubtest2": {
+        "name": "pubsubtest2",
+        "type": "pubsub",
+        "config": {
+          "mode": 0,
+          "topic": {
+            "name": "test2",
+            "subscriptions": []
+          }
+        },
+        "globallyEditable": false
+      }
+    },
+    "envVariables": [],
+    "packageJSON": {
+      "dependencies": {
+        "googleapis": {
+          "name": "googleapis",
+          "version": "29.0.0",
+          "notRemovable": false
+        }
+      }
+    },
+    "lambdaId": "0bf196e7-31d4-4fe7-ac20-19ee5f7d8c17"
+  },
+  "PROJECT_META": {
+    "projectName": "new11",
+    "projectDescription": "",
+    "projectVersion": "1.0.0",
+    "projectRegion": "us-east1",
+    "platform": "GCP",
+    "lastSave": 1541400771034
+  },
+  "VCS_STATE": {
+    "provider": "GitHub",
+    "repo": {
+      "name": "new11",
+      "url": "https://github.com/Kumudikatest/new11"
+    }
+  }
+}
